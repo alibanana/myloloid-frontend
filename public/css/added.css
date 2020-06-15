@@ -1,0 +1,131 @@
+/* Error Container */
+.error-container {
+    min-height: 500px;
+}
+
+.error-container h1 {
+    color: red;
+}
+
+/* In Multiple Pages */
+.category-thumbnail {
+    height: 100%;
+}
+
+.category-thumbnail img {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Catalogue Page */
+.product-container {
+    height: 100%;
+    border: 2px solid #eeeeee;
+    border-radius: 20px;
+}
+
+.cat-product-thumbnail {
+    width: 100%;
+    height: 75%;
+}
+
+.cat-product-thumbnail img {
+    width: 100%;
+    max-height: 90%;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.cat-product-thumbnail-text {
+    bottom: 0;
+}
+
+/* Wrappers Responsive Settings */
+@media (max-width: 768px) {
+    .coupon-cart-wrapper {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .minus-button,
+    .plus-button,
+    .quantity-text {
+        max-width: 50px;
+        width: 100%;
+        max-height: 35px;
+    }
+}
+
+@media (min-width: 768px) {
+    .table-wrapper-web {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .coupon-cart-wrapper {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .minus-button,
+    .plus-button,
+    .quantity-text {
+        max-width: 45px !important;
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .table-wrapper-web {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .coupon-cart-wrapper {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .minus-button,
+    .plus-button,
+    .quantity-text {
+        max-width: 45px !important;
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .table-wrapper-web {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+    .coupon-cart-wrapper {
+        padding-left: 10%;
+        padding-right: 10%;
+        max-width: 1600px;
+    }
+    .minus-button,
+    .plus-button,
+    .quantity-text {
+        max-width: 45px !important;
+        width: 100% !important;
+    }
+}
+
+/* Shopping Cart Table Web Childs */
+.table-wrapper-web .product-quantity {
+    min-width: 220px;
+}
+
+.table-wrapper-web .quantity-input .table-wrapper-web .quantity-text:read-only {
+    background-color: white;
+}
+
+.table-wrapper-web .coupon-input,
+.coupon-input-button,
+.update-cart-button {
+    height: 45px;
+    border-radius: 15px;
+}
+
+/* Shopping Cart Table Mobile Childs */
+.table-wrapper-mobile img {
+    width: 150px;
+    height: 150px;
+}
