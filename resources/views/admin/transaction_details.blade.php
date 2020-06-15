@@ -123,8 +123,7 @@
   </div>
   <div class="col-md-3 mb-2">
     <div class="image-preview-transaction mx-auto">
-      <img src="http://myloloid-backend.test/uploads/invoices/{{ $transaction['transfer']['file'] }}"
-        alt="Image Preview">
+      <img src="{{ env('API_URL').'/uploads/invoices/'$transaction['transfer']['file'] }}" alt="Image Preview">
     </div>
   </div>
 </div> @endisset @endsection

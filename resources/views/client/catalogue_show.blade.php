@@ -36,12 +36,12 @@
                         @foreach ($product['photos'] as $photo)
                         @if ($loop->first)
                         <div class="carousel-item active">
-                            <img src="http://myloloid-backend.test/uploads/images/{{ $photo['file'] }}"
+                            <img src="{{ env('API_URL').'/uploads/images/'.$photo['file'] }}"
                                 class="d-block w-100 img-thumbnail" alt="...">
                         </div>
                         @else
                         <div class="carousel-item">
-                            <img src="http://myloloid-backend.test/uploads/images/{{ $photo['file'] }}"
+                            <img src="{{ env('API_URL').'/uploads/images/'.$photo['file'] }}"
                                 class="d-block w-100 img-thumbnail" alt="...">
                         </div>
                         @endif

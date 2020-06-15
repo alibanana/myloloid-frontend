@@ -6,14 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-use App\Category;
-
 class CartController extends Controller
 {
     // Show Cart Page
     public function index()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         if (session()->has('cart')){
             $cartTotal = $this->getCartTotal();
@@ -33,7 +31,7 @@ class CartController extends Controller
     // Show Checkout Form Page
     public function indexCheckout()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         if (session()->has('cart')){
             $cartTotal = $this->getCartTotal();
@@ -58,9 +56,9 @@ class CartController extends Controller
     // Show invoice page
     public function indexInvoice($invoice_no)
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
-        $invoice = Http::get('http://myloloid-backend.test/api/transactions/'.$invoice_no)['data'];
+        $invoice = Http::get(env('API_URL').'/api/transactions/'.$invoice_no)['data'];
 
         return view('client/invoice', compact('categories', 'invoice'));
     }
@@ -69,7 +67,7 @@ class CartController extends Controller
     // Show confirmation page
     public function indexConfirmation()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         return view('client/confirmation', compact('categories'));
     }
@@ -89,14 +87,14 @@ class CartController extends Controller
             return view('client/error', compact('categories', 'title', 'message'));    
         }
 
-        $storeCustomer = Http::post('http://myloloid-backend.test/api/customers', $request->toArray());
-        $storeDelivery = Http::post('http://myloloid-backend.test/api/deliveries', $request->toArray());
-        $storeTransaction = Http::post('http://myloloid-backend.test/api/transactions', [
+        $storeCustomer = Http::post(env('API_URL').'/api/customers', $request->toArray());
+        $storeDelivery = Http::post(env('API_URL').'/api/deliveries', $request->toArray());
+        $storeTransaction = Http::post(env('API_URL').'/api/transactions', [
             'customer_id' => $storeCustomer['data']['id'],
             'delivery_id' => $storeDelivery['data']['id']
         ]);
 
-        $storeTransactionDetails = Http::post('http://myloloid-backend.test/api/transaction_details', [
+        $storeTransactionDetails = Http::post(env('API_URL').'/api/transaction_details', [
             'cart' => session('cart'),
             'transaction_id' => $storeTransaction['data']['id']
         ]);
@@ -132,10 +130,10 @@ class CartController extends Controller
 
         $storeTransferData = Http::attach(
             'image', $photo
-        )->post('http://myloloid-backend.test/api/transfers', $request->toArray());
+        )->post(env('API_URL').'/api/transfers', $request->toArray());
 
         if (!$storeTransferData['success']){
-            $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+            $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
             $title = $storeTransferData['message']['title'];
             $message = [
@@ -146,7 +144,7 @@ class CartController extends Controller
             return view('client/error', compact('categories', 'title', 'message'));    
         }
 
-        $transaction = Http::get('http://myloloid-backend.test/api/transactions/'.$request['invoice_no']);
+        $transaction = Http::get(env('API_URL').'/api/transactions/'.$request['invoice_no']);
 
         return redirect('invoice/'.$transaction['data']['invoice_no']);
     }

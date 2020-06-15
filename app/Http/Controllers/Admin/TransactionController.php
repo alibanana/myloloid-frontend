@@ -20,7 +20,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Http::get('http://myloloid-backend.test/api/transactions')['data'];
+        $transactions = Http::get(env('API_URL').'/api/transactions')['data'];
 
         return view('admin/transactions', compact('transactions'));
     }
@@ -54,7 +54,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = Http::get('http://myloloid-backend.test/api/transactions/'.$id)['data'];
+        $transaction = Http::get(env('API_URL').'/api/transactions/'.$id)['data'];
 
         return view('admin/transaction_details', compact('transaction'));
     }
@@ -79,7 +79,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateTransaction = Http::put('http://myloloid-backend.test/api/transactions/'.$id.'/status', $request->toArray());
+        $updateTransaction = Http::put(env('API_URL').'/api/transactions/'.$id.'/status', $request->toArray());
 
         return redirect('admin/transactions');
     }

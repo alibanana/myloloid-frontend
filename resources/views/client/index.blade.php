@@ -73,7 +73,7 @@
           href="{{ route('catalogue.category', ['category' => $category['category']]) }}">
           <figure class="image">
             <img
-              src="http://myloloid-backend.test/uploads/images/{{ Http::get('http://myloloid-backend.test/api/categories/'.$category['id'].'/thumbnail')['data']['file'] }}"
+              src="{{ env('API_URL').'/uploads/images/'.Http::get(env('API_URL').'/api/categories/'.$category['id'].'/thumbnail')['data']['file'] }}"
               alt="" class="img-fluid">
           </figure>
           <div class="text">

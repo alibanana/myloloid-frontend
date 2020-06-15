@@ -136,8 +136,7 @@
     @foreach($product['photos'] as $photo)
     <div class="card col-3 mb-4 mx-3">
       <div class="image-preview-edit mx-auto" id="previewContainer0">
-        <img src="http://myloloid-backend.test/uploads/images/{{ $photo['file'] }}" alt="Image Preview"
-          id="previewImage0">
+        <img src="{{ env('API_URL').'/uploads/images/'.$photo['file'] }}" alt="Image Preview" id="previewImage0">
         <span id="previewImageText0">Image Preview</span>
       </div>
       <div class="card-body">

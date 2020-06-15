@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
-use App\User;
-
 class UserController extends Controller
 {
     public function __construct()
@@ -23,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = Http::get('http://myloloid-backend.test/api/users');
+        $users = Http::get(env('API_URL').'/api/users');
 
         return view('admin/users', compact('users'));
     }
@@ -46,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $createUser = Http::post('http://myloloid-backend.test/api/users/', $request->toArray());
+        $createUser = Http::post(env('API_URL').'/api/users/', $request->toArray());
 
         return redirect()->route('users.index')->with('success','User Added');
     }
@@ -70,7 +68,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = Http::get('http://myloloid-backend.test/api/users/'.$id)['data'];
+        $user = Http::get(env('API_URL').'/api/users/'.$id)['data'];
 
         return view('admin/users_edit', compact('user'));    
     }
@@ -84,7 +82,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateUser = Http::put('http://myloloid-backend.test/api/users/'.$id, $request->toArray());
+        $updateUser = Http::put(env('API_URL').'/api/users/'.$id, $request->toArray());
 
         return redirect()->route('users.index')->with('success','User Updated');
     }
@@ -97,7 +95,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $deleteUser = Http::delete('http://myloloid-backend.test/api/users/'.$id);     
+        $deleteUser = Http::delete(env('API_URL').'/api/users/'.$id);     
 
         return redirect()->route('users.index')->with('success', 'Data Deleted');
     }

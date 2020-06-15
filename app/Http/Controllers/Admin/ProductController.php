@@ -6,13 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-use App\Category;
-use App\Product;
-use App\Material;
-use App\Colour;
-use App\Size;
-use App\Photo;
-
 class ProductController extends Controller
 {
     public function __construct()
@@ -28,13 +21,13 @@ class ProductController extends Controller
     public function index()
     {
         // Gets first category available and call subindex
-        $category = Http::get('http://myloloid-backend.test/api/categories/first');
+        $category = Http::get(env('API_URL').'/api/categories/first');
         return redirect()->route('admin.product.category', [$category['data']['category']]);
     }
 
     public function subindex($category)
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         // Set active_category from the param given
         foreach ($categories as $category_itr)
@@ -45,9 +38,9 @@ class ProductController extends Controller
             }
         }
 
-        $products = Http::get('http://myloloid-backend.test/api/categories/'.$active_category['id'])['data']['products'];
+        $products = Http::get(env('API_URL').'/api/categories/'.$active_category['id'])['data']['products'];
 
-        $photos = Http::get('http://myloloid-backend.test/api/photos')['data'];
+        $photos = Http::get(env('API_URL').'/api/photos')['data'];
 
         return view('admin/products', compact('categories', 'active_category', 'products', 'photos'));
     }
@@ -59,10 +52,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
-        $materials =Http::get('http://myloloid-backend.test/api/materials')['data'];
-        $colours = Http::get('http://myloloid-backend.test/api/colours')['data'];
-        $sizes = Http::get('http://myloloid-backend.test/api/sizes')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
+        $materials =Http::get(env('API_URL').'/api/materials')['data'];
+        $colours = Http::get(env('API_URL').'/api/colours')['data'];
+        $sizes = Http::get(env('API_URL').'/api/sizes')['data'];
 
         return view('admin/products_create', compact('categories', 'materials', 'colours', 'sizes'));
     }
@@ -75,7 +68,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $storeProduct = Http::post('http://myloloid-backend.test/api/products', $request->toArray());
+        $storeProduct = Http::post(env('API_URL').'/api/products', $request->toArray());
 
         // Delete all files in uplaods/temp
         $files = glob('uploads/temp/*'); // get all file names
@@ -103,7 +96,7 @@ class ProductController extends Controller
 
             $storePhoto = Http::attach(
                 'image', $photo, $newName
-            )->post('http://myloloid-backend.test/api/photos', ['product_id' => $storeProduct['data']['id']]);;
+            )->post(env('API_URL').'/api/photos', ['product_id' => $storeProduct['data']['id']]);;
         }
 
         dd($storePhoto->json());
@@ -131,12 +124,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
-        $materials =Http::get('http://myloloid-backend.test/api/materials')['data'];
-        $colours = Http::get('http://myloloid-backend.test/api/colours')['data'];
-        $sizes = Http::get('http://myloloid-backend.test/api/sizes')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
+        $materials =Http::get(env('API_URL').'/api/materials')['data'];
+        $colours = Http::get(env('API_URL').'/api/colours')['data'];
+        $sizes = Http::get(env('API_URL').'/api/sizes')['data'];
 
-        $product = Http::get('http://myloloid-backend.test/api/products/'.$id)['data'];
+        $product = Http::get(env('API_URL').'/api/products/'.$id)['data'];
 
         return view('admin/products_edit', compact('categories', 'materials', 'colours', 'sizes', 'product'));
     }
@@ -150,7 +143,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateProduct = Http::put('http://myloloid-backend.test/api/products/'.$id, $request->toArray());
+        $updateProduct = Http::put(env('API_URL').'/api/products/'.$id, $request->toArray());
 
         // Check if user inputed any photos
         if ($request->has('images')){
@@ -164,7 +157,7 @@ class ProductController extends Controller
                 }
             }
 
-            $deleteProductPhotos = Http::delete('http://myloloid-backend.test/api/products/'.$id.'/photos');
+            $deleteProductPhotos = Http::delete(env('API_URL').'/api/products/'.$id.'/photos');
 
             // Upload Images
             $images_inp = $request['images'];
@@ -184,7 +177,7 @@ class ProductController extends Controller
 
                 $storePhoto = Http::attach(
                     'image', $photo, $newName
-                )->post('http://myloloid-backend.test/api/photos', ['product_id' => $storeProduct['data']['id']]);;
+                )->post(env('API_URL').'/api/photos', ['product_id' => $storeProduct['data']['id']]);;
             }
         }
 
@@ -199,9 +192,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $deleteProductPhotos = Http::delete('http://myloloid-backend.test/api/products/'.$id.'/photos');
+        $deleteProductPhotos = Http::delete(env('API_URL').'/api/products/'.$id.'/photos');
 
-        $deleteProduct = Http::delete('http://myloloid-backend.test/api/products/'.$id);
+        $deleteProduct = Http::delete(env('API_URL').'/api/products/'.$id);
 
         return redirect('admin/products');
     }

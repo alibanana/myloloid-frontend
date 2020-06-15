@@ -9,7 +9,7 @@ class PagesController extends Controller
 {
     public function home()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         return view('client/index', compact('categories'));
     }

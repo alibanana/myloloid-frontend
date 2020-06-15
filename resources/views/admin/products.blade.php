@@ -44,7 +44,7 @@
       <th scope="row">{{ $loop->iteration }}</th>
       <td class="product-thumbnail p-0 text-center">
         <img
-          src="http://myloloid-backend.test/uploads/images/{{ Http::get('http://mylolo-id.test/api/products/'.$product['id'].'/thumbnail')['data']['file'] }}"
+          src="{{ env('API_URL').'/uploads/images/'.Http::get(env('API_URL').'/api/products/'.$product['id'].'/thumbnail')['data']['file'] }}"
           alt="" class="img-thumbnail">
       </td>
       <td>{{ $product['name'] }}</td>

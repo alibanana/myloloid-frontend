@@ -67,7 +67,7 @@
             <div class="product-container">
               <a href="{{ url('catalogue/products/'.$product['id']) }}">
                 <div class="row cat-product-thumbnail justify-content-center align-items-top m-0"><img
-                    src="http://myloloid-backend.test/uploads/images/{{ Http::get('http://myloloid-backend.test/api/products/'.$product['id'].'/thumbnail')['data']['file'] }}"
+                    src="{{ env('API_URL').'/uploads/images/'.Http::get(env('API_URL').'/api/products/'.$product['id'].'/thumbnail')['data']['file'] }}"
                     alt="Image placeholder" class="">
                 </div>
               </a>
@@ -145,7 +145,7 @@
                 href="{{ route('catalogue.category', ['category' => $category['category']]) }}">
                 <figure class="image">
                   <img
-                    src="http://myloloid-backend.test/uploads/images/{{ Http::get('http://mylolo-id.test/api/categories/'.$category['id'].'/thumbnail')['data']['file'] }}"
+                    src="{{ env('API_URL').'/uploads/images/'.Http::get(env('API_URL').'/api/categories/'.$category['id'].'/thumbnail')['data']['file'] }}"
                     alt="" class="img-fluid">
                 </figure>
                 <div class="text">

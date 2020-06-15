@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-use App\Category;
-use App\Product;
-
 class CatalogueController extends Controller
 {
     /**
@@ -18,14 +15,14 @@ class CatalogueController extends Controller
     public function index()
     { 
         // Gets first category available and call subindex
-        $response = Http::get('http://myloloid-backend.test/api/categories/first');
+        $response = Http::get(env('API_URL').'/api/categories/first');
 
         return redirect('catalogue/'.$response['data']['category']);
     }
 
     public function subindex(Request $request, $category)
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         // Set active_category from the param given
         foreach ($categories as $category_itr)
@@ -44,7 +41,7 @@ class CatalogueController extends Controller
         }
 
         // Get products in that category
-        $products = Http::get('http://myloloid-backend.test/api/categories/'.$active_category['id'].'/products', $params)['data'];
+        $products = Http::get(env('API_URL').'/api/categories/'.$active_category['id'].'/products', $params)['data'];
 
         return view('client/catalogue', compact('categories', 'active_category', 'products', 'params'));
     }
@@ -57,9 +54,9 @@ class CatalogueController extends Controller
      */
     public function show($id)
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
-        $product = Http::get('http://myloloid-backend.test/api/products/'.$id)['data'];
+        $product = Http::get(env('API_URL').'/api/products/'.$id)['data'];
 
         return view('client/catalogue_show', compact('categories', 'product'));
     }
@@ -67,7 +64,7 @@ class CatalogueController extends Controller
     // Add product to cart
     public function addtocart(Request $request, $id)
     {
-        $product = Http::get('http://myloloid-backend.test/api/products/'.$id)['data'];
+        $product = Http::get(env('API_URL').'/api/products/'.$id)['data'];
         
         $data = [
             'id' => $product['id'],

@@ -35,13 +35,13 @@
         @foreach (session()->get('cart') as $item)
         <tr class="align-items-center text-dark">
           <td class="product-thumbnail">
-            <img src="http://myloloid-backend.test/uploads/images/{{ $item['file'] }}" alt="" class="img-thumbnail">
+            <img src="{{ env('API_URL').'/uploads/images/'.$item['file'] }}" alt="" class="img-thumbnail">
           </td>
           <td class="product-name">{{ $item['name'] }}</td>
           <td class="product-colour">
-            {{ Http::get('http://myloloid-backend.test/api/colours/'.$item['colour'])['data']['colour'] }}</td>
+            {{ Http::get(env('API_URL').'/api/colours/'.$item['colour'])['data']['colour'] }}</td>
           <td class="product-size">
-            {{ Http::get('http://myloloid-backend.test/api/sizes/'.$item['size'])['data']['size'] }}</td>
+            {{ Http::get(env('API_URL').'/api/sizes/'.$item['size'])['data']['size'] }}</td>
           <td class="product-quantity">
             <div class="input-group quantity-input text-align-center justify-content-center">
               <div class="input-group-prepend">
@@ -78,7 +78,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-6">
-          <img src="http://myloloid-backend.test/uploads/images/{{ $item['file'] }}" alt="" class="rounded float-left"
+          <img src="{{ env('API_URL').'/uploads/images/'.$item['file'] }}" alt="" class="rounded float-left"
             class="img-thumbnail">
         </div>
         <div class="col-6 text-left d-flex flex-column">

@@ -24,17 +24,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         return view('client/dashboard', compact('categories'));
     }
 
     public function show()
     {
-        $categories = Http::get('http://myloloid-backend.test/api/categories')['data'];
+        $categories = Http::get(env('API_URL').'/api/categories')['data'];
 
         $user_id =  auth()->user()->id;
-        $transactions = Http::get('http://myloloid-backend.test/api/users/'.$user_id.'/transactions');
+        $transactions = Http::get(env('API_URL').'/api/users/'.$user_id.'/transactions');
 
         if (!$transactions['success']){
             $title = $transactions['message']['title'];
