@@ -40,9 +40,9 @@ class ProductController extends Controller
 
         $products = Http::get(env('API_URL').'/api/categories/'.$active_category['id'])['data']['products'];
 
-        $photos = Http::get(env('API_URL').'/api/photos')['data'];
+        // $photos = Http::get(env('API_URL').'/api/photos')['data'];
 
-        return view('admin/products', compact('categories', 'active_category', 'products', 'photos'));
+        return view('admin/products', compact('categories', 'active_category', 'products'));
     }
 
     /**
