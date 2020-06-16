@@ -89,7 +89,7 @@ class CatalogueController extends Controller
             session()->push('cart', $data);
         }
 
-        return redirect('/catalogue');
+        return redirect('/cart');
     }
 
     private function inCart($productID, $colourID, $sizeID) {
