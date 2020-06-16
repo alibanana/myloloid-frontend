@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $createUser = Http::post(env('API_URL').'/api/users/', $request->toArray());
+        $createUser = Http::post(env('API_URL').'/api/users', $request->toArray());
 
         return redirect()->route('users.index')->with('success','User Added');
     }
