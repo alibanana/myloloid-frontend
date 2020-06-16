@@ -83,8 +83,8 @@
         </div>
         <div class="col-6 text-left d-flex flex-column">
           <h6 class="text-primary">{{ $item['name'] }}</h6>
-          <h6 class="text-dark">{{ Http::get(url('api/colours/'.$item['colour']))['data']['colour'] }},
-            {{ Http::get(url('api/sizes/'.$item['size']))['data']['size'] }}</h6>
+          <h6 class="text-dark">{{ Http::get(env('API_URL').'/api/colours/'.$item['colour'])['data']['colour'] }},
+            {{ Http::get(env('API_URL').'/api/sizes/'.$item['size'])['data']['size'] }}</h6>
           <h5 class="text-black">IDR {{ $item['price'] }}</h5>
           <div class="input-group quantity-input mt-auto">
             <div class="input-group-prepend">
